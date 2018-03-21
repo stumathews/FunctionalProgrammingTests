@@ -60,3 +60,21 @@ Avoiding state mutation (no inplace changes to object)
 	 HOFs help to do optional execution of provideded function(contractor) using conditions within 
 	 passed in functions to HOfs often called callbacks or a continutation
 	 In these instances, HOfs APPLY the function internally.
+
+	 Function programimng focuses on functions and data transformations rather than objects.
+	
+	Pure functions only return values and exclusively only operate on arguments that are immutable
+	These functions only depend on input and that input should never change (arguments are immutable)
+	Pure functions do not throw exceptions.
+	Pure functions cannot do any IO. this is indeterminate resources
+
+	part of your codebaes that are pure functions can easily be
+	a) parallelised b) lazy evaluated c) cacheable(memoization)
+
+	Tuples are great at returning multiple pieces of information to the caller to deal with
+	
+	"Because its computation only depends on the input parameter, it can be made static without any problems, to make it a pure function"
+
+	Make pure functions static. Avoid mutable static fields. Avoid direct calls to static methods that perform I/O.
+
+	"A command is a simple data object that encapsulates details about an action to be carried out."
