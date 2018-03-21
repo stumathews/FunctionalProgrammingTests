@@ -30,8 +30,7 @@ namespace FunctionalProgramming
             });
 
             var test = either.Map(d => 'c');
-            var test1 = either.Bind()
-
+            
             Console.ReadKey();
 
 

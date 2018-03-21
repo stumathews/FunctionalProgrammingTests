@@ -1,0 +1,62 @@
+﻿Functional programming for beginners
+
+Functions as values - input to functions and output from functions
+
+	passing values into a function : list.Select(func); // passes each item in list ot func
+
+Avoiding state mutation (no inplace changes to object)
+	an object never changes,
+	variables should never be reassigned
+	eliminate descructive updates such as array[n] = x
+	viewing or operating on a value that is gaurenteed not to be changed by someone else is useful in parallizing operations that work on the value not changing
+
+	"When a program is written in a functional style from the outset"
+	"imperative style in their method implementations, mutating state in place and using explicit control flow"
+
+	Always aim for (pure functions often achive these ):
+	• Modularity (dividing software into reusable components)
+	• Separation of concerns (each component should only do one thing)
+	• Layering (high-level components can depend on low-level components, but not vice versa)
+	• Loose coupling (changes to a component shouldn’t affect components that depend on it)
+
+	"C#’s greatest shortcoming: everything is mutable by default, and the programmer has to put in a substantial amount of effort to achieve immutability."
+	 - readonly Fields are not default as they should be
+
+	 common operations on sequences (Linq)
+	 Mapping: passing each item in the sequence as each argument to the function - resulting in a new sequence as its result (Select)
+	 Filtering: yields a new sequence that meets the predicate condition (Where)
+	 Sorting: yields a new sequence according to the key (OrderBy and OrderBydescending)
+
+	 Useful c# for functional style:
+
+	 #getter only property can ONLY be set in the constructor below
+	 public double Radius {get;}
+	 #constructor
+	 public Circle(double radius) => Radius = radius
+	 # local function
+	 double Square(double d) => Pow(d,2);
+	 --> use it : Square(12.4)
+
+	 functions that rely on instance members where these states can change aren't functional - so prefer static functions that dont use class member and only rely on input
+	 This is why pulling in static functions from other namespaces are useful - "using static etc"
+
+	 - the great thing about local functions is that they are named and only used in one place, like a lambda but its name gives it a description etc.
+
+	 Tuples are a great way to define data in a dynamic structure without declaring a new type/class
+
+	 remember
+
+	 Func<T>, Func<T,R>, Func<T,T R> - functions that take paramters T, and return R
+	 Action, Action<T>, Action<T,T> - operations that dont return anything they just perform 'actions'
+
+
+	 IEnumerable<T> is more generic to List<T>
+
+	 "The fact that functions can be represented with dictionaries also makes it possible to optimize computationally expensive functions by storing their computed results in a dictionary instead of recomputing them every time."
+
+	 Higher order functions are functions that take functions and return functions.
+	 HOF are subcontractors, taking in worker in the form of functions and calling those functions later.
+	 HOFs help seperation of converns - you pass in the subcontractor which is defined and managed somewhere else sperately. 
+	 HOFs help to do optional execution of provideded function(contractor) using conditions within 
+	 passed in functions to HOfs often called callbacks or a continutation
+	 In these instances, HOfs APPLY the function internally.
