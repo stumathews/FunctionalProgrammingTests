@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Immutable;
-using System.Runtime.Remoting.Messaging;
 using LanguageExt;
-using LanguageExt.DataTypes.Serialisation;
 
 namespace FunctionalProgramming
 {
@@ -10,10 +7,16 @@ namespace FunctionalProgramming
     {
         static void Main(string[] args)
         {
-            Person person = new Person("Stuart", "Maathews")
-                .Rename("PETER")
-                .Rename("Chris");
-            Console.WriteLine($"name: {person.FirstName} surname: {person.LastName}" );
+            Option<Person> person = Person.Of("Stuart", "Maathews");
+            person.Match(
+                Some: person1 =>
+                {
+                    Console.WriteLine($"name: {person1.FirstName} surname: {person1.LastName}");
+                    var person2 = person1.Rename("chris").Rename("peter");
+                }, 
+                None: () => {});
+                
+            
             Console.ReadKey();
 
             Option<int> option = new Option<int>();
@@ -50,11 +53,22 @@ namespace FunctionalProgramming
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
 
-        public Person(string firstName, string lastName)
+        private Person(string firstName, string lastName)
         {
+            if (!IsValid(firstName, lastName))
+            {
+                throw new ArgumentException("Invalid input");
+            }
             FirstName = firstName;
             LastName = lastName;
         }
+
+
+        public static Option<Person> Of(string firstName, string lastName) 
+            => IsValid(firstName, lastName) ? Option <Person>.Some(new Person(firstName, lastName)) : Option <Person>.None;
+
+        private static bool IsValid(string firstName, string lastName)
+            => string.IsNullOrEmpty(firstName) && string.IsNullOrEmpty(lastName);
 
         /// <summary>
         /// Change a property of an object. Create a new version of that object  with the modification applied at object creation

@@ -10,10 +10,8 @@ namespace Tests
         [TestMethod]
         public void TestMethod1()
         {
-            Person person = new Person("Stuart", "Maathews")
-                .Rename("PETER")
-                .Rename("Chris");
-            Console.WriteLine($"name: {person.FirstName} surname: {person.LastName}" );
+           
+
             Console.ReadKey();
 
             Option<int> option = new Option<int>();
